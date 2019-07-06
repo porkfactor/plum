@@ -7,6 +7,7 @@ add_executable(
     unittest
     unittest.cpp
     point.cpp
+    vector.cpp
 )
 
 target_include_directories(unittest INTERFACE gtest)

@@ -38,9 +38,9 @@ public:
         return *this;
     }
 
-    static vector &normal(vector const &v)
+    vector &normal() const
     {
-        vector t(v);
+        vector t(*this);
 
         return t.normal();
     }
@@ -55,7 +55,7 @@ public:
         return (x_ != v.x_) || (y_ != v.y_) || (z_ != v.z_);
     }
 
-    vector &operator += (vector const &r) const
+    vector &operator += (vector const &r)
     {
         x_ += r.x_;
         y_ += r.y_;
@@ -64,12 +64,17 @@ public:
         return *this;
     }
 
-    vector &operator -= (vector const &r) const
+    vector &operator -= (vector const &r)
     {
         x_ -= r.x_;
         y_ -= r.y_;
         z_ -= r.z_;
 
+        return *this;
+    }
+
+    vector &operator ^= (vector const &r)
+    {
         return *this;
     }
 
@@ -95,6 +100,21 @@ template<typename _Type>
 inline vector<_Type> operator * (vector<_Type> const &l, _Type const &t)
 {
     return vector<_Type>(l.x() * t, l.y() * t, l.z() * t);
+}
+
+template<typename _Type>
+inline double dot(vector<_Type> const &l, vector<_Type> const &r)
+{
+    return (l.x() * r.x()) + (l.y() * r.y()) + (l.z() * r.z());
+}
+
+template<typename _Type>
+inline vector<_Type> cross(vector<_Type> const &l, vector<_Type> const &r)
+{
+    return vector<_Type>(
+        (l.y() * r.z()) - (l.z() * r.y()),
+        (l.z() * r.x()) - (l.x() * r.z()),
+        (l.x() * r.y()) - (l.y() * r.x()));
 }
 
 #endif
